@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>Compte rendu d'activité</h1>
+
+    <h3>Mois de
+        <%=mois%>
+            <%= year %>
+    </h3>
+
+    <h4>Mission</h4>
+    <div>
+        <p>Nom prestataire :
+            <%=prestataire%>
+        </p>
+        <p>Nom du client :
+            <%=client%>
+        </p>
+        <p>Intitulé de la mission :
+            <%= mission %>
+        </p>
+    </div>
+
+    <h4>Durée de la prestation : 1 unité de facturation = 1 journée travaillé</h4>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <% for(var i=0; i <daysInMonth.length;  i++ ) { %>
+                    <th scope="col">
+                        <%= i + 1 %>
+                    </th>
+                    <% } %>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <% for(var i=0; i <daysInMonth.length;  i++ ) { %>
+                    <td>
+                        <% if(daysInMonth[i].is_bd) {%>
+                            1
+                            <% } else { %>
+                                0
+                                <% } %>
+                    </td>
+                    <% } %>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <p>Total :
+        <%= business_days.length %>
+    </p>
+
+    <p>Validation</p>
+
+    <div> Intervenant (date, nom, prénom, signature obligatoire)</div>
+
+    <div> Intervenant (date, nom, prénom, signature obligatoire)</div>
+
+    <div>Je soussigné, certifie l'exactitude des prestations reportées ci-dessus ainsi que sa bonne exécution pour la facturation conforme aux accords commerciaux signés</div>
+
+</body>
+
+</html>
+
+<style>
+    table,
+    td {
+        border: 1px solid #333;
+    }
+    
+    thead,
+    tfoot {
+        background-color: #333;
+        color: #fff;
+    }
+    
+    body {
+        margin: 5cm;
+    }
+    
+    h1 {
+        text-decoration: underline;
+    }
+</style>
