@@ -8,7 +8,6 @@ var corsOptions = {
 };
 
 const app = express()
-    // app.engine('html', mustacheExpress())
 app.set('view engine', 'ejs')
 
 app.use(cors(corsOptions));
@@ -25,7 +24,7 @@ app.get('/export/html', (req, res) => {
     var mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
     var templateData = JSON.parse(req.query.param)
     templateData.mois = mois[templateData.month]
-    console.log("req.params", templateData)
+    console.log("templateData : ", req.query.param)
     res.render('template', templateData)
 })
 
@@ -33,14 +32,10 @@ app.post('/export/pdf', (req, res) => {
     (async() => {
         const browser = await puppeteer.launch()
         const page = await browser.newPage()
-        console.log("hehe", String(JSON.stringify(req.body)))
         await page.goto('http://localhost:3000/export/html?param=' + String(JSON.stringify(req.body))).then(success => console.log("success")).catch(error => console.log("error"))
         const buffer = await page.pdf({ format: 'A4', landscape: true })
 
-        // res.setHeader('Content-Length', buffer.size);
         res.setHeader('Content-Type', 'application/pdf');
-        // res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        // console.log(buffer)
         res.send(buffer);
         browser.close()
     })()

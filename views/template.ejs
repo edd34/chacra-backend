@@ -9,18 +9,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
-    <h1>Compte rendu d'activité</h1>
-
-    <h3>Mois de
+    <h1>Rapport d'activité</h1>
+    <hr>
+    <br>
+    <h3 id="mois">Mois :
         <%=mois%>
             <%= year %>
     </h3>
+
 
     <h4>Mission</h4>
     <div>
@@ -37,67 +42,119 @@
 
     <h4>Durée de la prestation : 1 unité de facturation = 1 journée travaillé</h4>
 
-    <table class="table">
+    <div class="calendar">
+        <% for(var i=0; i <daysInMonth.length;  i++ ) { %>
+            <div class="cell">
+                <div class="cell-header">
+                    <%=i + 1 %>
+                </div>
 
-        <thead>
-            <tr>
-                <% for(var i=0; i <daysInMonth.length;  i++ ) { %>
-                    <th scope="col">
-                        <%= i + 1 %>
-                    </th>
-                    <% } %>
-            </tr>
+                <div class="cell-content">
+                    <% if(daysInMonth[i].is_bd) {%>
+                        1
+                        <% } else { %>
+                            0
+                            <% } %>
+                </div>
+            </div>
+            <% } %>
 
-        </thead>
-        <tbody>
-            <tr>
-                <% for(var i=0; i <daysInMonth.length;  i++ ) { %>
-                    <td>
-                        <% if(daysInMonth[i].is_bd) {%>
-                            1
-                            <% } else { %>
-                                0
-                                <% } %>
-                    </td>
-                    <% } %>
-            </tr>
+    </div>
 
-        </tbody>
-    </table>
-
-    <p>Total :
+    <div>Total :
         <%= business_days.length %>
-    </p>
+    </div>
+    <br>
+    <div>Validation :</div>
+    <div id="sides">
+        <div id="left">
+            <div class="leftbox">Intervenant <br> (date, nom, prénom, signature obligatoire)</div>
+        </div>
 
-    <p>Validation</p>
+        <div id="right">
+            <div class="rightbox">Client <br> (date, nom, prénom, signature obligatoire) </div>
+        </div>
+    </div>
 
-    <div> Intervenant (date, nom, prénom, signature obligatoire)</div>
-
-    <div> Intervenant (date, nom, prénom, signature obligatoire)</div>
-
-    <div>Je soussigné, certifie l'exactitude des prestations reportées ci-dessus ainsi que sa bonne exécution pour la facturation conforme aux accords commerciaux signés</div>
-
+    <br>
+    <div>
+        <b>Je soussigné, certifie l'exactitude des prestations reportées ci-dessus ainsi que sa bonne exécution pour la facturation conforme aux accords commerciaux signés</b>
+    </div>
+    <br>
 </body>
 
 </html>
 
 <style>
-    table,
-    td {
-        border: 1px solid #333;
-    }
-    
-    thead,
-    tfoot {
-        background-color: #333;
-        color: #fff;
-    }
-    
     body {
-        margin: 5cm;
+        padding: 3.5cm;
     }
     
     h1 {
         text-decoration: underline;
+        text-align: center;
+    }
+    
+    #mois {
+        text-align: right;
+        border: 2.5px;
+        border-style: solid;
+        border-color: black;
+        margin-left: 500px;
+        padding: 5px 20px 2px 20px;
+        display: inline;
+    }
+    
+    .cell {
+        width: 100px;
+        height: 50px;
+        float: left;
+        text-align: center;
+        margin: 3px 2px 3px 2px;
+        border: 2px solid black;
+    }
+    
+    .cell-header {
+        background-color: darksalmon;
+    }
+    
+    .cell-content {
+        background-color: cornflowerblue;
+    }
+    
+    .calendar {
+        overflow: auto;
+        margin: 0px 50px 0 50px;
+    }
+    
+    #sides {
+        margin: 0cm 0cm 0cm 0cm;
+    }
+    
+    #left {
+        float: left;
+        width: 50%;
+        overflow: hidden;
+    }
+    
+    #right {
+        width: 50%;
+        overflow: hidden;
+    }
+    
+    .rightbox {
+        border: 2px solid black;
+        margin: 0px 0px 0px 170px;
+        padding: 2px 2px 100px 2px;
+    }
+    
+    .leftbox {
+        border: 2px solid black;
+        margin: 0px 170px 0px 0px;
+        padding: 2px 2px 100px 2px;
+    }
+    
+    html {
+        -webkit-print-color-adjust: exact;
     }
 </style>
