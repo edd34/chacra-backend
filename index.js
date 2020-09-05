@@ -30,9 +30,9 @@ app.get('/export/html', (req, res) => {
 
 app.post('/export/pdf', (req, res) => {
     (async() => {
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
         const page = await browser.newPage()
-        await page.goto('http://localhost:3000/export/html?param=' + String(JSON.stringify(req.body))).then(success => console.log("success")).catch(error => console.log("error"))
+        await page.goto('https://intense-castle-64808.herokuapp.com/export/html?param=' + String(JSON.stringify(req.body))).then(success => console.log("success")).catch(error => console.log("error"))
         const buffer = await page.pdf({ format: 'A4', landscape: true })
 
         res.setHeader('Content-Type', 'application/pdf');
