@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 var corsOptions = {
-    origin: "http://localhost:8080"
+    origin: "https://cra-generator.herokuapp.com"
 };
 
 const app = express()
