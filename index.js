@@ -34,7 +34,6 @@ app.post('/export/pdf', (req, res) => {
         const page = await browser.newPage()
         await page.goto('https://intense-castle-64808.herokuapp.com/export/html?param=' + String(JSON.stringify(req.body))).then(success => console.log("success")).catch(error => console.log("error"))
         const buffer = await page.pdf({ format: 'A4', landscape: true })
-
         res.setHeader('Content-Type', 'application/pdf');
         res.send(buffer);
         browser.close()
